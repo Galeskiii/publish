@@ -99,6 +99,7 @@ const Lightbox = ({ index, images, onClose, onPrev, onNext }: {
   onPrev: () => void;
   onNext: () => void;
 }) => {
+  const { t } = useLang();
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -160,6 +161,7 @@ const Lightbox = ({ index, images, onClose, onPrev, onNext }: {
 };
 
 const MobileCarousel = ({ images, onOpen }: { images: typeof images_data, onOpen: (i: number) => void }) => {
+  const { t } = useLang();
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, skipSnaps: false, align: "center", dragFree: false });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [hasScrolled, setHasScrolled] = useState(false);
