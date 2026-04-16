@@ -41,7 +41,7 @@ const ContactSection = () => {
               try {
                 await navigator.clipboard.writeText("stargaleski@gmail.com");
                 const { toast } = await import("sonner");
-                toast.success("E-mail copiado!");
+                toast.success((t as any).common.emailCopied);
               } catch {
                 // Fallback for HTTP or denied permission
                 const el = document.createElement("textarea");
@@ -53,7 +53,7 @@ const ContactSection = () => {
                 document.execCommand("copy");
                 document.body.removeChild(el);
                 const { toast } = await import("sonner");
-                toast.success("E-mail copiado!");
+                toast.success((t as any).common.emailCopied);
               }
             }}
             className="group relative font-mono text-sm uppercase tracking-[0.15em] border border-border px-8 py-4 transition-all duration-300 hover:border-primary hover:text-primary w-full text-center"

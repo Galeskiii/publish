@@ -25,7 +25,7 @@ const HeroSection = () => {
       <div className="absolute top-1/2 left-0 w-[30%] h-px bg-border opacity-20" />
 
       <div className="absolute bottom-10 right-4 md:right-12 text-muted-foreground font-mono text-[10px] md:text-xs rotate-90 tracking-widest hidden sm:block">
-        SCROLL ↓↓↓
+        {(t as any).common.scroll}
       </div>
 
       <div className="relative z-10 px-5 md:px-16 lg:px-24 w-full max-w-[100vw]">
@@ -46,7 +46,7 @@ const HeroSection = () => {
           {/* About box */}
           <div className="md:col-span-7 flex items-center md:pl-8 mt-8 md:mt-0 pb-12 md:pb-0">
             <div className="border border-border/40 bg-card/20 backdrop-blur-sm px-6 md:px-12 py-10 md:py-14 relative w-full" style={{ backgroundColor: "rgba(0,0,0,0.3)" }}>
-              <TechLabel text="ABOUT_ME" className="absolute -top-3 left-6 md:left-8 bg-background px-2 text-[10px]" />
+              <TechLabel text={t.about.label} className="absolute -top-3 left-6 md:left-8 bg-background px-2 text-[10px]" />
               <p className="font-mono text-[13px] md:text-[15px] leading-[1.9] md:leading-[2.2] text-muted-foreground whitespace-pre-line text-left">
                 {t.about.text}
               </p>
@@ -58,7 +58,7 @@ const HeroSection = () => {
           {Array.from({ length: 25 }).map((_, i) => (
             <div
               key={i}
-              className={`w-3 h-3 ${[0,1,3,5,6,8,10,12,14,16,18,20,21,23,24].includes(i) ? "bg-foreground" : "bg-transparent"}`}
+              className={`w-3 h-3 ${[0, 1, 3, 5, 6, 8, 10, 12, 14, 16, 18, 20, 21, 23, 24].includes(i) ? "bg-foreground" : "bg-transparent"}`}
             />
           ))}
         </div>

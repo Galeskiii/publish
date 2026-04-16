@@ -4,6 +4,7 @@ import { useLang } from "@/contexts/LanguageContext";
 import GlitchText from "./GlitchText";
 import RansomText from "./RansomText";
 import TechLabel from "./TechLabel";
+import { FolderOpen, Eye } from "lucide-react";
 
 const projectRoutes: Record<string, string> = {
   EVOLUE: "/project/evolue",
@@ -11,6 +12,7 @@ const projectRoutes: Record<string, string> = {
 };
 
 const ProjectCard = ({ project, index }: { project: { title: string; tag: string; year: string; desc: string }; index: number }) => {
+  const { t } = useLang();
   const navigate = useNavigate();
   const route = projectRoutes[project.title];
   const [hovered, setHovered] = useState(false);
@@ -43,41 +45,82 @@ const ProjectCard = ({ project, index }: { project: { title: string; tag: string
       onMouseLeave={() => setHovered(false)}
       onClick={() => route && navigate(route)}
     >
+      {/* Visual Stack Effect (Background layers) */}
       <div 
-        className={`relative border border-border/40 px-6 pt-12 pb-8 md:p-14 min-h-[280px] md:min-h-[400px] flex flex-col justify-end transition-all duration-500 w-full overflow-hidden ${hovered ? "bg-card/40" : "bg-card/10 backdrop-blur-sm"}`}
+        className={`absolute -top-1.5 -right-1.5 w-full h-full border border-border/10 bg-card/5 transition-all duration-500 rounded-xs ${hovered ? "translate-x-1 translate-y-1 opacity-0" : "opacity-100"}`}
+        style={{ zIndex: -1 }}
+      />
+      <div 
+        className={`absolute -top-3 -right-3 w-full h-full border border-border/10 bg-card/5 transition-all duration-500 rounded-xs ${hovered ? "translate-x-2 translate-y-2 opacity-0" : "opacity-100"}`}
+        style={{ zIndex: -2 }}
+      />
+
+      <div 
+        className={`relative border border-border/40 px-6 pt-16 pb-12 md:p-14 min-h-[300px] md:min-h-[420px] flex flex-col justify-end transition-all duration-500 w-full overflow-hidden ${hovered ? "bg-card/60 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.7)]" : "bg-card/10 backdrop-blur-sm"}`}
         style={{ borderColor: hovered ? brandColor : undefined }}
       >
+        {/* Folder Tab Effect */}
+        <div 
+          className="absolute top-0 right-0 w-32 h-8 bg-border/10 border-b border-l border-border/40 flex items-center justify-center gap-2 transition-all duration-500"
+          style={{ 
+            borderColor: hovered ? `${brandColor}40` : undefined,
+            backgroundColor: hovered ? `${brandColor}10` : undefined
+          }}
+        >
+          <FolderOpen size={10} className="text-muted-foreground" style={{ color: hovered ? brandColor : undefined }} />
+          <span className="font-mono text-[8px] tracking-widest text-muted-foreground uppercase">Project_Files</span>
+        </div>
+
         {hovered && (
           <div 
-            className="absolute inset-0 animate-flicker pointer-events-none opacity-[0.03]" 
+            className="absolute inset-0 animate-flicker pointer-events-none opacity-[0.05]" 
             style={{ backgroundColor: brandColor }}
           />
         )}
 
-        <TechLabel text={`PRJ_${String(index + 1).padStart(3, "0")}`} className="absolute top-5 left-5" />
+        <TechLabel text={`PRJ_${String(index + 1).padStart(3, "0")}`} className="absolute top-5 left-6" />
 
-        <div className="relative z-10">
+        <div className="relative z-10 w-full">
           <span 
-            className="font-mono text-[10px] uppercase tracking-[0.2em] mb-3 block transition-colors"
+            className="font-mono text-[10px] uppercase tracking-[0.2em] mb-4 block transition-colors"
             style={{ color: hovered ? brandColor : "hsl(var(--muted-foreground))" }}
           >
             {project.tag}
           </span>
           <h3 
-            className="font-display text-[2.5rem] md:text-6xl leading-[1.1] transition-colors duration-200"
+            className="font-display text-[2.8rem] md:text-7xl leading-[1] transition-colors duration-200"
             style={{ color: "hsl(var(--foreground))" }}
           >
             {hovered ? <GlitchText text={project.title} glitchColor={brandColor} /> : project.title}
           </h3>
-          <p className="font-mono text-[13px] text-muted-foreground mt-4 leading-relaxed">{project.desc}</p>
+          <p className="font-mono text-[13px] text-muted-foreground mt-5 leading-relaxed max-w-[90%]">{project.desc}</p>
+          
+          {/* Gallery Hint Button - Always visible with blink */}
+          <div 
+            className={`mt-8 flex items-center gap-3 transition-all duration-500 animate-soft-blink ${hovered ? "scale-[1.02]" : "scale-100"}`}
+          >
+            <div 
+              className="px-4 py-2 border flex items-center gap-2 rounded-xs transition-colors duration-500"
+              style={{ 
+                borderColor: hovered ? brandColor : `${brandColor}40`, 
+                backgroundColor: hovered ? `${brandColor}20` : `${brandColor}05` 
+              }}
+            >
+              <Eye size={12} style={{ color: brandColor }} />
+              <span className="font-mono text-[10px] md:text-[11px] tracking-tighter font-bold" style={{ color: brandColor }}>
+                {t.projects.viewGallery}
+              </span>
+            </div>
+            <div className="flex-1 h-px opacity-30" style={{ backgroundColor: brandColor }} />
+          </div>
         </div>
 
         <div 
-          className="absolute bottom-0 right-0 w-8 h-8 border-b border-r transition-colors" 
+          className="absolute bottom-0 right-0 w-10 h-10 border-b border-r transition-colors" 
           style={{ borderColor: hovered ? brandColor : "hsl(var(--border))" }} 
         />
         <div 
-          className="absolute top-0 left-0 w-8 h-8 border-t border-l transition-colors" 
+          className="absolute top-0 left-0 w-10 h-10 border-t border-l transition-colors" 
           style={{ borderColor: hovered ? brandColor : "hsl(var(--border))" }} 
         />
       </div>

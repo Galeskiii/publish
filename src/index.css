@@ -153,6 +153,11 @@
   to   { opacity: 1; }
 }
 
+@keyframes soft-blink {
+  0%, 100% { opacity: 0.3; filter: brightness(0.8); }
+  50% { opacity: 1; filter: brightness(1.2); }
+}
+
 /* ─── Utility classes ───────────────────────────────────────── */
 
 .animate-glitch-1   { animation: glitch-1 0.3s linear infinite; }
@@ -161,6 +166,7 @@
 .animate-flicker    { animation: flicker 4s linear infinite; }
 .animate-hero-enter { animation: hero-enter 0.9s ease-out forwards; }
 .animate-shake      { animation: shake 0.4s ease-in-out; }
+.animate-soft-blink { animation: soft-blink 3s ease-in-out infinite; }
 
 /* Scanline effect — thinner and softer */
 .scanline::after {
